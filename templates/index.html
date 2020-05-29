@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="h2">Recipe Genie!</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="text-danger">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+<form action="{{ url_for('index') }}" method="POST">
+    <div class="col-sm-2 my-1">
+            <label for="ing1" class="sr-only">Ingredient 1:</label>
+            <input type="text" class="form-control" name="ing1" id="ing1" placeholder="Enter ingredient 1">
+        </div>
+        <div class="col-sm-2 my-1">
+            <label for="ing2" class="sr-only">Ingredient 2:</label>
+            <input type="text" class="form-control" name="ing2" id="ing2" placeholder="Enter ingredient 2">
+        </div>
+        <div class="col-sm-2 my-1">
+            <label for="ing3" class="sr-only">Ingredient 3:</label>
+            <input type="text" class="form-control" name="ing3" id="ing3" placeholder="Enter ingredient 3">
+        </div>
+        <div class="col-sm-2 my-1">
+            <label for="ing4" class="sr-only">Ingredient 4:</label>
+            <input type="text" class="form-control" name="ing4" id="ing4" placeholder="Enter ingredient 4">
+        </div>
+        <div class="col-sm-2 my-1">
+            <label for="ing5" class="sr-only">Ingredient 5:</label>
+            <input type="text" class="form-control" name="ing5" id="ing5" placeholder="Enter ingredient 5">
+        </div>
+        <div class="col-sm-2 my-1">
+            <label for="ing6" class="sr-only">Ingredient 6:</label>
+            <input type="text" class="form-control" name="ing6" id="ing6" placeholder="Enter ingredient 6">
+        </div>
+        <div class="col-sm-2 my-1">
+            <button type="submit" class="btn btn-primary btn-block">Get Recipes</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}

@@ -3,6 +3,15 @@
 {% block content %}
 
 {% for recipe in recipes %}
-    {{ recipe }}
+    <div class="render recipes">
+        <img src={{recipe.image_url}} height='150' width="150">
+        <h4>{{recipe.title}}</h4>
+        <ul>
+            {% for ing in  recipe.ingredients%}
+                <li>{{ ing }}</li>
+            {% endfor %}
+        </ul>
+        <p>{{ recipe.instructions }}</p>
+    </div>
 {% endfor %}
 {% endblock content %}

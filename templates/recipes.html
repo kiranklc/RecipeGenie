@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<h4 class="text-center">Recipes for you!</h4>
 {% for recipe in recipes %}
-    <div class="render recipes">
-        <img src={{recipe.image_url}} height='150' width="150">
-        <h4>{{recipe.title}}</h4>
-        <ul>
+    <div class="container border">
+    <div class="row d-flex justify-content-center">
+    <div class="col-md-9 my-1">
+        <div class="text-center">
+            <img src="{{recipe.image_url}}" alt="recipe" class="img-thumbnail" style="height: 150px; width: 150px">
+        </div>
+        <h4 class="text-center">{{recipe.title}}</h4>
+        <ul class="text-center">
             {% for ing in  recipe.ingredients%}
                 <li>{{ ing }}</li>
             {% endfor %}
         </ul>
-        <p>{{ recipe.instructions }}</p>
+        <p class="text-justify">{{ recipe.instructions }}</p>
+    </div>
+    </div>
     </div>
 {% endfor %}
 {% endblock content %}

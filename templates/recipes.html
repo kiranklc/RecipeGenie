@@ -2,22 +2,34 @@
 
 {% block content %}
 <h4 class="text-center">Recipes for you!</h4>
-{% for recipe in recipes %}
-    <div class="container border">
-    <div class="row d-flex justify-content-center">
-    <div class="col-md-9 my-1">
-        <div class="text-center">
-            <img src="{{recipe.image_url}}" alt="recipe" class="img-thumbnail" style="height: 150px; width: 150px">
-        </div>
-        <h4 class="text-center">{{recipe.title}}</h4>
-        <ul class="text-center">
-            {% for ing in  recipe.ingredients%}
-                <li>{{ ing }}</li>
+    <div class="container">
+        <div id="accordion" class="accordion"   >
+            {% for recipe in recipes %}
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#recipe_{{recipe._id}}">{{ recipe.title }}</a>
+                    </div>
+                    <div id="recipe_{{ recipe._id }}" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="row my-1">
+                                <div class="col-md-8">
+                                    <ul class="text-center">
+                                        {% for ing in  recipe.ingredients%}
+                                            <li>{{ ing }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <p class="text-justify">{{ recipe.instructions }}</p>
+                                </div>
+                                <div class="col-md-4 mt-3 pt-2">
+                                    <div class="view z-depth-1">
+                                        <img src="{{recipe.image_url}}" alt="recipe" style="height:200px;width:200px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
-        <p class="text-justify">{{ recipe.instructions }}</p>
+        </div>
     </div>
-    </div>
-    </div>
-{% endfor %}
 {% endblock content %}

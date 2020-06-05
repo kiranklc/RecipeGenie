@@ -13,17 +13,23 @@
                         <div class="card-body">
                             <div class="row my-1">
                                 <div class="col-md-8">
+                                    <h5>Ingredients:</h5>
                                     <ul class="text-center">
                                         {% for ing in  recipe.ingredients%}
                                             <li>{{ ing }}</li>
                                         {% endfor %}
                                     </ul>
-                                    <p class="text-justify">{{ recipe.instructions }}</p>
                                 </div>
                                 <div class="col-md-4 mt-3 pt-2">
                                     <div class="view z-depth-1">
                                         <img src="{{recipe.image_url}}" alt="recipe" style="height:200px;width:200px">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-md-12">
+                                    <h5>Instructions:</h5>
+                                    <p class="text-justify">{{ recipe.instructions }}</p>
                                 </div>
                             </div>
                         </div>

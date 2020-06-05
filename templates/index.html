@@ -3,10 +3,10 @@
 {% block content %}
 
 <div class="container">
-    <h2 class="h2">Recipe Genie!</h2>
+    <h2 class="h2 text-center">Recipe Genie!</h2>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul class="text-danger">
+            <ul class="text-danger text-center">
             {% for message in messages %}
                 <li>{{ message }}</li>
             {% endfor %}
@@ -14,46 +14,48 @@
         {% endif %}
     {% endwith %}
     <h4 class="text-capitalize">Enter ingredients manually </h4>
-<form action="{{ url_for('index') }}" method="POST">
-    <div class="col-sm-3 my-1">
-            <label for="ing1" class="sr-only">Ingredient 1:</label>
-            <input type="text" class="form-control" name="ing1" id="ing1" placeholder="Enter ingredient 1">
-    </div>
-    <div class="col-sm-3 my-1">
-            <label for="ing2" class="sr-only">Ingredient 2:</label>
-            <input type="text" class="form-control" name="ing2" id="ing2" placeholder="Enter ingredient 2">
-    </div>
-    <div class="col-sm-3 my-1">
-            <label for="ing3" class="sr-only">Ingredient 3:</label>
-            <input type="text" class="form-control" name="ing3" id="ing3" placeholder="Enter ingredient 3">
-    </div>
-    <div class="col-sm-3 my-1">
-            <label for="ing4" class="sr-only">Ingredient 4:</label>
-            <input type="text" class="form-control" name="ing4" id="ing4" placeholder="Enter ingredient 4">
-    </div>
-    <div class="col-sm-3 my-1">
-            <label for="ing5" class="sr-only">Ingredient 5:</label>
-            <input type="text" class="form-control" name="ing5" id="ing5" placeholder="Enter ingredient 5">
-    </div>
-    <div class="col-sm-3 my-1">
-            <label for="ing6" class="sr-only">Ingredient 6:</label>
-            <input type="text" class="form-control" name="ing6" id="ing6" placeholder="Enter ingredient 6">
-    </div>
-    <div class="col-sm-3 my-1">
+     <a class="col-sm-3" id="add" href="#">Add Ingredient</a>
+        {# Show all subforms #}
+        <form id="ing-form" action="{{ url_for('index') }}" method="POST" role="form">
+            {{ form.hidden_tag() }}
+
+            <div id="subforms-container">
+                {% for subform in form.ingredients %}
+                    <div id="ing-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+                        {{ subform.ingredient }}
+
+                        <a class="remove" href="#">Remove</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-3 my-2">
             <button type="submit" class="btn btn-primary btn-block">Get Recipes</button>
-    </div>
-  </form>
+            </div>
+        </form>
+
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
+
+        {# Form template #}
+        <div id="ing-_-form" class="is-hidden" data-index="_">
+            <label for="ingredients-_-ingredient" class="sr-only">Ingredient</label>
+            <input id="ingredients-_-ingredient" name="ingredients-_-ingredient" class="col-sm-3 my-1" type="text" value="" placeholder="Enter ingredient">
+
+            <a class="remove" href="#">Remove</a>
+        </div>
+
     <h4 class="text-captalize">Or Upload Image</h4>
     <form action="{{ url_for('upload_image') }}" method="POST" enctype="multipart/form-data">
-        <div class="col-sm-3 my-1">
+        <div class="col-sm-3 col-md-offset-3 my-1">
           <label>Select image</label>
           <div class="custom-file">
             <input type="file" class="custom-file-input" name="image" id="image">
             <label class="custom-file-label" for="image">Select image...</label>
           </div>
         </div>
-        <div class="col-sm-3 my-1">
-            <button type="submit" class="btn btn-primary">Upload</button>
+        <div class="col-sm-3 col-md-offset-3 my-2">
+            <button type="submit" class="btn btn-primary">Check Ingredients</button>
         </div>
       </form>
 </div>

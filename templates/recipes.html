@@ -2,6 +2,15 @@
 
 {% block content %}
 <h4 class="text-center">Recipes for you!</h4>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="text-danger text-center">
+            {% for message in messages %}
+                <li style="list-style: none">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <div class="container">
         <div id="accordion" class="accordion"   >
             {% for recipe in recipes %}

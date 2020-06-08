@@ -84,8 +84,15 @@
                 $newForm.find('.remove').click(removeForm);
             }
 
+            function displayName() {
+                console.log(this.files[0].name)
+                $("#custom-file-label").text(this.files[0].name);
+            }
+
 
             $(document).ready(function() {
                 $('#add').click(addForm);
                 $('.remove').click(removeForm);
+                $('#image').change(displayName);
+
             });

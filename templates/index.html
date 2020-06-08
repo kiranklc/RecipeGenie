@@ -8,7 +8,7 @@
         {% if messages %}
             <ul class="text-danger text-center">
             {% for message in messages %}
-                <li>{{ message }}</li>
+                <li style="list-style: none">{{ message }}</li>
             {% endfor %}
             </ul>
         {% endif %}
@@ -44,14 +44,14 @@
 
             <a class="remove" href="#">Remove</a>
         </div>
-
+    <br/>
     <h4 class="text-captalize">Or Upload Image</h4>
     <form action="{{ url_for('upload_image') }}" method="POST" enctype="multipart/form-data">
         <div class="col-sm-3 col-md-offset-3 my-1">
-          <label>Select image</label>
+          <label>Select image of type jpg/png/jpeg</label>
           <div class="custom-file">
             <input type="file" class="custom-file-input" name="image" id="image">
-            <label class="custom-file-label" for="image">Select image...</label>
+            <label class="custom-file-label" id="custom-file-label" for="image">Select image...</label>
           </div>
         </div>
         <div class="col-sm-3 col-md-offset-3 my-2">

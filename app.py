@@ -23,7 +23,6 @@ class MainForm(FlaskForm):
 app = Flask(__name__)
 app.config.from_object(config['dev'])
 
-print(config['dev'].API_KEY)
 image_app = ClarifaiApp(api_key=config['dev'].API_KEY)
 try:
     model = image_app.models.get(model_id="bd367be194cf45149e75f01d59f77ba7")
@@ -35,7 +34,7 @@ def validate_upload(rfiles):
     if 'image' not in rfiles:
         return 'No image part'
     image = rfiles['image']
-    print(image.filename)
+    #print(image.filename)
     if not image or image.filename == '':
         return 'Please select an image'
     elif '.' not in image.filename:
@@ -51,13 +50,11 @@ def index():
     if request.method == 'POST':
         ingredients = []
         if form.validate_on_submit():
-            print(form.ingredients.data)
             for ing in form.ingredients.data:
                 if ing['ingredient'] and ing['ingredient'] != '':
                     ingredients.append(ing['ingredient'])
-        print(ingredients)
         if not ingredients:
-            flash('Enter atleast one ingredient')
+            flash('Enter at least one ingredient')
             return redirect(url_for('index'))
         recipes = RecipeModel().get_recipes(ingredients)
         if not recipes:
@@ -76,18 +73,14 @@ def upload_image():
             message = validate_upload(request.files)
             if message == 'upload validated':
                 image = request.files["image"].read()
-                print(image, type(image))
                 response = model.predict_by_bytes(image)
-                print(response)
                 ingredients = [x['name'] for x in response['outputs'][0]['data']['concepts']]
-                print(ingredients)
+                #print(ingredients)
                 for ing in ingredients:
-                    print(ing)
                     if ing:
                         ing_form = IngForm()
                         ing_form.ingredient = ing
                         form.ingredients.append_entry(ing_form)
-                    print(form.ingredients.data)
                 return render_template('index.html',form=form)
             else:
                 flash(message)
